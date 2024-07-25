@@ -10,20 +10,20 @@ import { Repository } from "typeorm";
 export class TokenService {
     constructor(private refreshTokenRepository: Repository<RefreshToken>) {}
     generateAccessToken(payload: JwtPayload) {
-        // let privateKey: Buffer;
-        let privateKey: string;
+        let privateKey: Buffer;
+        // let privateKey: string;
 
-        if (!Config.PRIVATE_KEY) {
-            const error = createHttpError(500, "SECRET key is not set");
-            throw error;
-        }
+        // if (!Config.PRIVATE_KEY) {
+        //     const error = createHttpError(500, "SECRET key is not set");
+        //     throw error;
+        // }
 
         try {
-            // privateKey = fs.readFileSync(
-            //     path.join(__dirname, "../../certs/private.pem"),
-            // );
+            privateKey = fs.readFileSync(
+                path.join(__dirname, "../../certs/private.pem"),
+            );
             // privateKey = Config.PRIVATE_KEY!;
-            privateKey = Config.PRIVATE_KEY;
+            // privateKey = Config.PRIVATE_KEY ?  Config.PRIVATE_KEY:'secret';
         } catch (err) {
             const error = createHttpError(
                 500,
